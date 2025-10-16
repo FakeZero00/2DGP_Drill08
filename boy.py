@@ -22,12 +22,12 @@ class AutoRun:
     def __init__(self, boy):
         self.boy = boy
         self.speed = 5
-        self.size = 1
+        self.size = 100
 
     def enter(self, e):
         self.boy.wait_start_time = get_time()
         self.speed = 5
-        self.size = 1
+        self.size = 100
         if self.boy.face_dir == 1:
             self.boy.dir = 1
         else:
@@ -43,6 +43,7 @@ class AutoRun:
 
         self.boy.frame = (self.boy.frame + 1) % 8
         self.speed += 0.1
+        self.size += 1
         self.boy.x += self.boy.dir * self.speed
         if self.boy.x + 25 > 800:
             self.boy.x = 800 - 25
@@ -53,9 +54,9 @@ class AutoRun:
 
     def draw(self):
         if self.boy.face_dir == 1: # right
-            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y + ((self.size - 100) / 3), self.size, self.size)
         else: # face_dir == -1: # left
-            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y + ((self.size - 100) / 3), self.size, self.size)
 
 class Run:
     def __init__(self, boy):
