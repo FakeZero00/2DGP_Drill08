@@ -16,6 +16,34 @@ def space_down(e):
 def time_out(e):
     return e[0] == 'TIME_OUT'
 
+class AutoRun:
+    def __init__(self, boy):
+        self.boy = boy
+        self.speed = 5
+        self.size = 1
+
+    def enter(self, e):
+        self.boy.wait_start_time = get_time()
+        self.speed = 5
+        self.size = 1
+
+    def exit(self, e):
+        pass
+
+    def do(self):
+        if get_time() - self.boy.wait_start_time > 5.0:
+            self.boy.state_machine.handle_events(('TIME_OUT', 0))
+            return
+
+        self.boy.frame = (self.boy.frame + 1) % 8
+        self.boy.x += self.boy.dir * 5
+
+    def draw(self):
+        if self.boy.face_dir == 1: # right
+            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y)
+        else: # face_dir == -1: # left
+            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
+
 class Run:
     def __init__(self, boy):
         self.boy = boy
