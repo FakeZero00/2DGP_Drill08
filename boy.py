@@ -42,7 +42,8 @@ class AutoRun:
             return
 
         self.boy.frame = (self.boy.frame + 1) % 8
-        self.boy.x += self.boy.dir * 5
+        self.speed += 0.1
+        self.boy.x += self.boy.dir * self.speed
         if self.boy.x + 25 > 800:
             self.boy.x = 800 - 25
             self.boy.dir = self.boy.face_dir = -1
